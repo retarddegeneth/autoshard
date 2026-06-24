@@ -1,49 +1,41 @@
 ---
 name: autoshard
-description: "AutoShard: autonomous B20 token risk scanner agent on Base mainnet. Scans, scores, and tracks token risk with live RPC, SQLite ledger, and terminal UI."
-version: 1.0.0
+description: "AutoShard: autonomous B20 token risk scanner agent on Base mainnet. Headless JSON API, SQLite ledger, no UI."
+version: 1.2.0
 author: retarddegeneth
 license: MIT
 platforms: [linux]
 metadata:
   hermes:
-    tags: [base, b20, scanner, risk, agent, autonomous]
+    tags: [base, b20, scanner, risk, agent, autonomous, json, api]
     related_skills: [hermes-agent, quick-web-apps]
 ---
 
 # AutoShard
 
-An autonomous agent that continuously monitors Base B20 token addresses, collects on-chain signals, computes a 0–100 risk score, and maintains a local ledger.
+Autonomous Base B20 token risk scanner agent. Headless JSON API. No terminal UI.
 
-## Responsibilities
-- Scan new token addresses on Base mainnet or base-sepolia
-- Pull on-chain metadata (name, symbol, decimals, block age)
-- Detect hook patterns: pause, mint, set_fee
-- Score risk as SAFE / WARN / DANGER
-- Persist every scan in SQLite with factors and reasons
-- Expose terminal UI and JSON export
-
-## Startup
+## Install / Run
 ```bash
-cd /data/data/com.termux/files/home/b20-scanner
+git clone https://github.com/retarddegeneth/autoshard.git && cd autoshard
 python3 app.py
-# UI at http://127.0.0.1:8080
-# Health at http://127.0.0.1:8080/health
 ```
 
-## Invocation
-- `GET /` — leaderboard and scan form
-- `POST /scan` — scan a token; fields: address, name, symbol, chain
-- `GET /token/<address>` — per-token detail page
-- `GET /refresh` — recalc scores from stored factors
-- `GET /export` — JSON dump of ledger
+## API
+- `GET /health` — status
+- `POST /scan` — scan token; JSON body: `{"address":"0x...","name":"","symbol":"","chain":"base"}`
+- `GET /ledger` — list all scanned tokens
+- `POST /refresh` — recompute scores from stored factors
+
+## Responses
+```json
+{"address":"0x...","name":"...","symbol":"...","risk_score":75.0,"classification":"safe","last_scanned":"...","factors":{...},"reasons":[...]}
+```
 
 ## RPC
-- Default endpoint: `https://mainnet.base.org`
-- Override with env `BASE_RPC=https://your-rpc`
-- Chain header uses `X-Chain-ID`:
-  - base: `0x2105`
-  - base-sepolia: `0x14a34`
+- Default: `https://mainnet.base.org`
+- Env override: `BASE_RPC=https://your-rpc`
+- Chain header: `X-Chain-ID` (`base=0x2105`, `base-sepolia=0x14a34`)
 
 ## Selectors
 - name: `0x06fdde03`
@@ -52,14 +44,13 @@ python3 app.py
 
 ## Risk model
 Score starts at 100. Deductions:
-- block_age < 100: -40 (EXTREMELY_NEW_CONTRACT)
-- block_age < 10000: -20 (NEW_CONTRACT)
-- top_holder_pct > 60: -30 (CONCENTRATED_TOP_HOLDER)
-- top_holder_pct > 30: -15 (TOP_HOLDER)
-- no liquidity: -25 (NO_REPORTED_LIQUIDITY)
-- volume/liquidity ratio >10x: -10 (VOLUME_ILLIQUID_RATIO_SUSPICIOUS)
-- hooks: pause (-10), mint (-15), set_fee (tracked)
-- transfer_tax_cap_extreme: -20 (flagged)
+- block_age < 100: -40
+- block_age < 10000: -20
+- top_holder_pct > 60: -30
+- top_holder_pct > 30: -15
+- no liquidity: -25
+- volume/liquidity >10x: -10
+- hooks: pause (-10), mint (-15), set_fee (flagged)
 
 Classification:
 - SAFE >= 70
@@ -70,21 +61,14 @@ Classification:
 - File: `b20.db`
 - Table: `tokens (address PK, name, symbol, risk_score, classification, extra_json, last_scanned, created_at)`
 
-## Concurrency rules
-- Default port: 8080
-- If another app binds 8080, stop it: `pkill -f "python3 app.py"` in the other project dir
-- For public access: use `ngrok http 8080` or deploy backend to Vercel/Railway
-- Do not expose `bankr-shilling` and `b20-scanner` on the same port simultaneously
-
 ## Verification
 ```bash
-curl http://127.0.0.1:8080/health   # expect {"ok":true,...}
-curl -I http://127.0.0.1:8080/      # expect 200
-python3 -c "import sqlite3; ..."    # confirm tokens table exists and populated
+curl http://127.0.0.1:8080/health
+curl -X POST -H 'Content-Type: application/json' -d '{"address":"0x4200000000000000000000000000000000000006","chain":"base"}' http://127.0.0.1:8080/scan
+curl http://127.0.0.1:8080/ledger
 ```
 
-## Upgrades
-- Add holder concentration via ERC-20 `balanceOf` over a holder set
-- Decode transfer tax from pair logs
-- Add contract verification check (bytecode vs source)
-- Bridge events to external notifier (Telegram, X, Discord)
+## Notes
+- No UI. This is an agent skill / service.
+- No paid APIs required.
+- Port: 8080. Stop other flask apps first if needed.
