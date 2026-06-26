@@ -8,20 +8,21 @@
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
   :root {
-    --bg-primary: #0a0a0b;
-    --bg-secondary: #111113;
-    --bg-tertiary: #18181b;
-    --border: #27272a;
-    --border-subtle: #1f1f22;
-    --text-primary: #fafafa;
-    --text-secondary: #a1a1aa;
-    --text-muted: #71717a;
-    --accent: #00d991;
-    --accent-dim: #00d99122;
-    --accent-glow: #00d99144;
+    --bg-primary: #08090a;
+    --bg-secondary: #0f1012;
+    --bg-tertiary: #16171a;
+    --border: #26292e;
+    --border-subtle: #1e2024;
+    --text-primary: #fafbfc;
+    --text-secondary: #b0b3b8;
+    --text-muted: #6e737a;
+    --accent: #3b82f6;
+    --accent-dim: #3b82f620;
+    --accent-glow: #3b82f640;
+    --accent-secondary: #60a5fa;
     --warn: #fbbf24;
     --danger: #f87171;
-    --code-bg: #0d0d0f;
+    --code-bg: #0a0b0d;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,16 +38,16 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
 
   /* Nav */
   header {
     border-bottom: 1px solid var(--border-subtle);
     position: sticky;
     top: 0;
-    background: rgba(10, 10, 11, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: rgba(8, 9, 10, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     z-index: 100;
   }
 
@@ -54,16 +55,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 56px;
+    height: 58px;
   }
 
   .logo {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-weight: 600;
+    font-weight: 650;
     font-size: 15px;
     letter-spacing: -0.01em;
+    color: var(--text-primary);
+    text-decoration: none;
   }
 
   .logo-icon {
@@ -76,12 +79,13 @@
     justify-content: center;
     font-size: 14px;
     font-weight: 800;
-    color: #000;
+    color: #fff;
+    letter-spacing: -0.02em;
   }
 
   .nav-links {
     display: flex;
-    gap: 32px;
+    gap: 28px;
     align-items: center;
     list-style: none;
   }
@@ -112,33 +116,90 @@
   .btn-nav:hover { background: var(--border); }
 
   /* Hero */
-  .hero { padding: 120px 0 90px; text-align: center; position: relative; }
+  .hero {
+    padding: 140px 0 90px;
+    text-align: center;
+    position: relative;
+  }
 
   .hero::before {
     content: '';
     position: absolute;
-    top: -60px;
+    top: -140px;
     left: 50%;
     transform: translateX(-50%);
-    width: 600px;
-    height: 400px;
-    background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 70%);
+    width: 700px;
+    height: 450px;
+    background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 65%);
     pointer-events: none;
-    opacity: 0.5;
-    filter: blur(40px);
+    opacity: 0.55;
+    filter: blur(50px);
   }
 
-  .hero h1 {
-    font-size: 68px;
-    font-weight: 700;
-    letter-spacing: -0.04em;
-    line-height: 1.1;
-    margin-bottom: 20px;
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-secondary);
+    font-size: 13.5px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text-primary); }
+
+  .btn-nav {
+    padding: 7px 16px;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .btn-nav:hover { background: var(--border); }
+
+  /* Hero */
+  .hero {
+    padding: 140px 0 90px;
+    text-align: center;
     position: relative;
   }
 
-  .hero h1 .gradient {
-    background: linear-gradient(135deg, var(--accent), #7dd3fc);
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -140px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 450px;
+    background: radial-gradient(ellipse at center, var(--accent-glow) 0%, transparent 65%);
+    pointer-events: none;
+    opacity: 0.55;
+    filter: blur(50px);
+  }
+
+  .hero h1 {
+    font-size: 76px;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+    margin-bottom: 22px;
+    position: relative;
+  }
+
+  .hero h1 .line2 {
+    background: linear-gradient(130deg, var(--accent-secondary), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -147,50 +208,73 @@
   .hero-sub {
     font-size: 19px;
     color: var(--text-secondary);
-    max-width: 560px;
-    margin: 0 auto 36px;
+    max-width: 580px;
+    margin: 0 auto 32px;
     font-weight: 400;
     line-height: 1.6;
   }
 
-  .badge-row {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 32px;
+  .hero-cta {
+    display: inline-flex;
+    gap: 12px;
+    margin-bottom: 52px;
+    position: relative;
   }
 
-  .badge {
-    padding: 5px 14px;
-    border-radius: 99px;
-    font-size: 12.5px;
+  .btn-primary {
+    padding: 12px 24px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 8px;
     font-weight: 600;
-    letter-spacing: 0.01em;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
   }
 
-  .badge-green { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-glow); }
-  .badge-neutral { background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border); }
+  .btn-primary:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 30px var(--accent-glow);
+  }
+
+  .btn-secondary {
+    padding: 12px 24px;
+    background: transparent;
+    color: var(--text-primary);
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    background: var(--bg-tertiary);
+    border-color: var(--text-muted);
+  }
 
   /* Terminal */
   .terminal {
-    max-width: 640px;
+    max-width: 660px;
     margin: 0 auto;
     background: var(--code-bg);
-    border: 1px solid #27272a22;
+    border: 1px solid var(--border-subtle);
     border-radius: 12px;
     overflow: hidden;
     text-align: left;
-    box-shadow: 0 24px 64px -24px rgba(0,0,0,0.7);
+    box-shadow: 0 28px 80px -28px rgba(0,0,0,0.75);
   }
 
   .terminal-header {
     display: flex;
     align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid #27272a44;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border-subtle);
     gap: 8px;
-    background: #0d0d0f;
+    background: var(--bg-secondary);
   }
 
   .dot { width: 10px; height: 10px; border-radius: 50%; background: #3f3f46; }
@@ -205,21 +289,26 @@
     font-family: 'Menlo', 'Consolas', monospace;
   }
 
-  pre.terminal-body {
-    padding: 20px 24px;
+  .terminal-body {
+    padding: 22px 24px;
     font-size: 13px;
-    line-height: 1.75;
+    line-height: 1.8;
     font-family: 'Menlo', 'Consolas', 'Monaco', monospace;
     overflow-x: auto;
     color: var(--text-secondary);
   }
 
-  .prompt { color: var(--accent); }
+  .prompt { color: var(--accent-secondary); }
   .comment { color: var(--text-muted); font-style: italic; }
+
+  .key { color: #c084fc; }
+  .string { color: #86efac; }
+  .number { color: #fbbf24; }
+  .bracket { color: var(--text-muted); }
   .url { color: #60a5fa; }
 
   /* Sections */
-  .section { padding: 80px 0; }
+  .section { padding: 100px 0; }
 
   .section-label {
     font-size: 12.5px;
@@ -231,196 +320,262 @@
   }
 
   .section h2 {
-    font-size: 34px;
-    font-weight: 600;
-    letter-spacing: -0.03em;
-    margin-bottom: 16px;
-    line-height: 1.2;
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    margin-bottom: 18px;
+    line-height: 1.15;
   }
 
   .section-desc {
     color: var(--text-secondary);
     font-size: 17px;
-    max-width: 560px;
-    margin-bottom: 40px;
+    max-width: 580px;
     line-height: 1.6;
   }
 
-  /* Endpoints */
-  .endpoints {
-    border: 1px solid #27272a33;
-    border-radius: 10px;
-    overflow: hidden;
+  /* What is */
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-top: 36px;
   }
 
-  .endpoint {
-    display: flex;
-    border-bottom: 1px solid #27272a22;
-  }
-
-  .endpoint:last-child { border-bottom: none; }
-
-  .endpoint-method {
-    width: 80px;
-    padding: 14px 20px;
-    text-align: center;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    border-right: 1px solid #27272a33;
+  .about-item {
     background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 20px 22px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .about-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent-glow);
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
+    font-size: 15px;
+    flex-shrink: 0;
   }
 
-  .endpoint-method.get { color: var(--accent); }
-  .endpoint-method.post { color: var(--warn); }
-
-  .endpoint-body {
-    flex: 1;
-    padding: 16px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  .about-item strong {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
   }
 
-  .endpoint-path {
-    font-family: 'Menlo', 'Consolas', monospace;
-    font-size: 13.5px;
-    font-weight: 500;
-    color: var(--text-primary);
-  }
-
-  .endpoint-desc {
+  .about-item p {
     font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* How it works */
+  .workflow {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+    position: relative;
+  }
+
+  .workflow::before {
+    content: '';
+    position: absolute;
+    top: 28px;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    z-index: 0;
+  }
+
+  .workflow-step {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 22px 20px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step-num {
+    width: 30px;
+    height: 30px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+  }
+
+  .workflow-step h4 {
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .workflow-step p {
+    font-size: 12.5px;
     color: var(--text-muted);
     line-height: 1.5;
   }
 
-  .inline-code {
-    background: var(--bg-tertiary);
-    padding: 2px 7px;
-    border-radius: 4px;
-    font-family: 'Menlo', 'Consolas', monospace;
-    font-size: 12px;
-    color: var(--text-secondary);
+  /* Features */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 36px;
   }
 
-  /* Code block */
-  .code-block {
-    background: var(--code-bg);
-    border: 1px solid #27272a33;
+  .feature-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
     border-radius: 10px;
-    padding: 20px 24px;
-    font-family: 'Menlo', 'Consolas', 'Monaco', monospace;
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    overflow-x: auto;
-    position: relative;
+    padding: 24px;
+    transition: border-color 0.25s;
   }
 
-  .code-block .lang {
-    position: absolute;
-    top: 12px;
-    right: 16px;
-    font-size: 11px;
+  .feature-card:hover {
+    border-color: var(--border);
+  }
+
+  .feature-icon {
+    font-size: 20px;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .feature-card h4 {
+    font-size: 14px;
     font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .feature-card p {
+    font-size: 13px;
     color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  /* Architecture */
+  .arch-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    padding: 40px 32px;
+    margin-top: 36px;
+    text-align: center;
+  }
+
+  .arch-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+
+  .arch-node {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 11px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+  }
+
+  .arch-node.highlight {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent-secondary);
+  }
+
+  .arch-arrow {
+    color: var(--text-muted);
+    font-size: 18px;
+  }
+
+  .arch-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 16px;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
 
-  /* Install */
-  .install-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 18px;
-    margin-top: 24px;
-  }
-
-  .install-card {
-    background: var(--bg-secondary);
-    border: 1px solid #27272a33;
-    border-radius: 10px;
-    padding: 24px 28px;
-  }
-
-  .install-card h4 {
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
-  }
-
-  .install-card p {
-    font-size: 13.5px;
-    color: var(--text-muted);
-    margin-bottom: 14px;
-    line-height: 1.6;
-  }
-
-  .mini-code {
+  /* API */
+  .api-block {
     background: var(--code-bg);
-    border: 1px solid #27272a22;
-    border-radius: 6px;
-    padding: 12px 14px;
-    font-family: 'Menlo', 'Consolas', monospace;
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.65;
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    padding: 22px 24px;
+    font-family: 'Menlo', 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin-top: 20px;
   }
 
-  /* Risk grid */
-  .risk-grid {
+  .api-line { display: block; margin-bottom: 2px; }
+
+  /* Open source */
+  .oss-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    padding: 52px 40px;
+    margin-top: 36px;
+  }
+
+  .oss-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-top: 24px;
+    gap: 28px;
+    margin-top: 28px;
   }
 
-  .risk-card {
-    background: var(--bg-secondary);
-    border: 1px solid #27272a33;
-    border-radius: 10px;
-    padding: 22px;
-    transition: border-color 0.2s;
-  }
-
-  .risk-card:hover { border-color: var(--border); }
-
-  .risk-card h3 {
+  .oss-item h4 {
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    color: var(--text-primary);
   }
 
-  .risk-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  .risk-card p {
+  .oss-item p {
+    font-size: 13px;
     color: var(--text-muted);
-    font-size: 12.5px;
-    font-family: 'Menlo', 'Consolas', monospace;
+    line-height: 1.55;
   }
 
   /* CTA */
-  .cta { padding: 60px 0 100px; text-align: center; }
+  .cta {
+    padding: 80px 0 110px;
+    text-align: center;
+  }
 
   .cta-card {
     background: var(--bg-secondary);
-    border: 1px solid #27272a33;
-    border-radius: 14px;
-    padding: 60px 40px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 16px;
+    padding: 70px 40px;
     position: relative;
     overflow: hidden;
   }
@@ -428,63 +583,42 @@
   .cta-card::before {
     content: '';
     position: absolute;
-    top: -60px;
+    top: -80px;
     left: 50%;
     transform: translateX(-50%);
-    width: 400px;
-    height: 200px;
+    width: 500px;
+    height: 240px;
     background: radial-gradient(ellipse at top, var(--accent-glow) 0%, transparent 70%);
     pointer-events: none;
     opacity: 0.6;
-    filter: blur(30px);
+    filter: blur(40px);
   }
 
   .cta-card h2 {
-    font-size: 28px;
+    font-size: 32px;
     font-weight: 700;
-    letter-spacing: -0.03em;
-    margin-bottom: 12px;
+    letter-spacing: -0.035em;
+    margin-bottom: 14px;
     position: relative;
   }
 
   .cta-card p {
     color: var(--text-secondary);
-    font-size: 15px;
-    margin-bottom: 28px;
+    font-size: 16px;
+    margin-bottom: 30px;
     position: relative;
   }
 
-  .cta-btn {
-    display: inline-block;
-    padding: 11px 26px;
-    background: var(--accent);
-    color: #000;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    text-decoration: none;
-    transition: all 0.2s;
+  .cta-btns {
+    display: inline-flex;
+    gap: 12px;
+    position: relative;
   }
-
-  .cta-btn:hover {
-    background: #00f0a0;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 24px var(--accent-glow);
-  }
-
-  .cta-btn.secondary {
-    background: var(--bg-tertiary);
-    color: var(--text-primary);
-    border: 1px solid var(--border);
-    margin-left: 12px;
-  }
-
-  .cta-btn.secondary:hover { background: var(--border); box-shadow: none; }
 
   /* Footer */
   footer {
     border-top: 1px solid var(--border-subtle);
-    padding: 28px 0;
+    padding: 36px 0;
   }
 
   .footer-inner {
@@ -493,11 +627,31 @@
     justify-content: space-between;
   }
 
-  .footer-inner p { font-size: 13px; color: var(--text-muted); }
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+
+  .footer-brand .logo-icon {
+    width: 22px;
+    height: 22px;
+    background: var(--accent);
+    border-radius: 5px;
+    font-size: 11px;
+  }
+
+  .footer-tagline {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 6px;
+  }
 
   .footer-links {
     display: flex;
-    gap: 24px;
+    gap: 26px;
     list-style: none;
   }
 
@@ -505,31 +659,43 @@
     color: var(--text-muted);
     text-decoration: none;
     font-size: 13px;
+    transition: color 0.2s;
   }
 
-  .footer-links a:hover { color: var(--accent); }
+  .footer-links a:hover { color: var(--accent-secondary); }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(14px); }
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  .anim { animation: fadeIn 0.65s ease forwards; opacity: 0; }
-  .anim-1 { animation-delay: 0.05s; }
-  .anim-2 { animation-delay: 0.12s; }
-  .anim-3 { animation-delay: 0.19s; }
-  .anim-4 { animation-delay: 0.26s; }
+  .anim { animation: fadeInUp 0.7s ease forwards; opacity: 0; }
+  .anim-1 { animation-delay: 0.06s; }
+  .anim-2 { animation-delay: 0.14s; }
+  .anim-3 { animation-delay: 0.22s; }
+  .anim-4 { animation-delay: 0.30s; }
+  .anim-5 { animation-delay: 0.38s; }
 
-  @media (max-width: 700px) {
-    .hero h1 { font-size: 38px; }
+  /* Mobile */
+  @media (max-width: 800px) {
+    .hero h1 { font-size: 42px; }
     .hero-sub { font-size: 16px; }
-    .install-grid { grid-template-columns: 1fr; }
-    .risk-grid { grid-template-columns: 1fr; }
-    .endpoint { flex-direction: column; }
-    .endpoint-method { width: 100%; border-right: none; border-bottom: 1px solid #27272a33; justify-content: flex-start; }
+    .about-grid { grid-template-columns: 1fr; }
+    .workflow { grid-template-columns: 1fr 1fr; }
+    .workflow::before { display: none; }
+    .features-grid { grid-template-columns: 1fr; }
+    .oss-grid { grid-template-columns: 1fr; }
+    .hero-cta { flex-direction: column; align-items: center; }
+    .cta-btns { flex-direction: column; align-items: center; }
     .nav-links { display: none; }
-    .cta-btn.secondary { margin-left: 0; margin-top: 10px; }
-    .footer-inner { flex-direction: column; gap: 14px; }
+    .section h2 { font-size: 30px; }
+    footer { flex-direction: column; gap: 22px; }
+    .footer-inner { flex-direction: column; align-items: flex-start; gap: 18px; }
+  }
+
+  @media (max-width: 500px) {
+    .workflow { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -537,211 +703,336 @@
 
 <header>
   <div class="container nav">
-    <div class="logo">
+    <a class="logo" href="#">
       <div class="logo-icon">A</div>
       <span>AutoShard</span>
-    </div>
+    </a>
     <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="https://github.com/retarddegeneth/autoshard">GitHub</a></li>
       <li><a href="#api">API</a></li>
-      <li><a href="#model">Risk Model</a></li>
-      <li><a href="#install">Install</a></li>
-      <li><a href="#verify">Verify</a></li>
     </ul>
-    <a class="btn-nav" href="https://github.com/retarddegeneth/autoshard">GitHub</a>
+    <a class="btn-nav" href="https://github.com/retarddegeneth/autoshard">Docs</a>
   </div>
 </header>
 
 <main>
 
+<!-- HERO -->
 <section class="hero">
   <div class="container">
-    <div class="badge-row anim anim-1">
-      <span class="badge badge-green">Base Mainnet</span>
-      <span class="badge badge-neutral">Headless JSON API</span>
-      <span class="badge badge-neutral">SQLite Ledger</span>
-      <span class="badge badge-neutral">MIT</span>
+    <div class="hero-cta anim anim-1">
+      <a href="#install" class="btn-primary">Get Started</a>
+      <a href="https://github.com/retarddegeneth/autoshard" class="btn-secondary">View on GitHub</a>
     </div>
+
     <h1 class="anim anim-2">
-      Autonomous <span class="gradient">B20 token</span><br>risk agent on Base
+      Autonomous <span class="line2">B20 token</span><br>risk agent on Base
     </h1>
     <p class="hero-sub anim anim-3">
       Headless JSON API. No UI. No paid providers. Score every B20 token against contract age, holder concentration, liquidity ratios, and known hook patterns.
     </p>
+
     <div class="terminal anim anim-4">
       <div class="terminal-header">
         <span class="dot active"></span>
         <span class="dot yellow"></span>
         <span class="dot green"></span>
-        <span class="terminal-title">autoshard</span>
+        <span class="terminal-title">autoshard — live contract scan</span>
       </div>
-      <pre class="terminal-body">
-<span class="comment"># install</span>
-<span class="prompt">$</span> git clone https://github.com/retarddegeneth/autoshard.git
-<span class="prompt">$</span> cd autoshard && python3 app.py
+      <pre class="terminal-body"><span class="prompt">$</span> <span class="comment"># initiate WETH scan on Base mainnet</span>
+<span class="prompt">$</span> curl -X POST http://127.0.0.1:8080/scan \
+    -H <span class="url">'Content-Type: application/json'</span> \
+    -d <span class="url">‘{"address":"0x4200...0006","chain":"base"}'</span>
 
-<span class="comment"># scan a token</span>
-<span class="prompt">$</span> curl -X POST -H <span class="url">'Content-Type: application/json'</span> \
-  -d <span class="url">'{"address":"0x...","chain":"base"}'</span> \
-  <span class="url">http://127.0.0.1:8080/scan</span>
-
-<span class="comment"># response</span>
-<span class="url">{"risk_score":92.0,"classification":"safe",...}</span>
-      </pre>
+<span class="comment">// response</span>
+<span class="bracket">{</span>
+  <span class="key">"address"</span>:   <span class="string">"0x4200000000000000000000000000000000000006"</span>,
+  <span class="key">"symbol"</span>:    <span class="string">"WETH"</span>,
+  <span class="key">"risk_score"</span>: <span class="number">92.0</span>,
+  <span class="key">"classification"</span>: <span class="string">"safe"</span>,
+  <span class="key">"factors"</span>: <span class="bracket">{</span>
+    <span class="key">"contract_age"</span>: <span class="number">2847193</span>,
+    <span class="key">"top_holder_pct"</span>: <span class="number">12.4</span>,
+    <span class="key">"liquidity_locked"</span>: <span class="number">true</span>
+  <span class="bracket">}</span>,
+  <span class="key">"reasons"</span>: <span class="bracket">[</span><span class="string">"mature contract"</span>, <span class="string">"distributed holders"</span><span class="bracket">]</span>
+<span class="bracket">}</span></pre>
     </div>
   </div>
 </section>
 
-<section id="api" class="section">
+<!-- WHAT IS AUTOSHARD -->
+<section id="about" class="section" style="padding-top:0;">
   <div class="container">
-    <div class="section-label">API Reference</div>
-    <h2>Four endpoints. That's all you need.</h2>
-    <p class="section-desc">Structured JSON responses, no bloat. Drop-in compatible with any agent, CI pipeline, or monitoring stack.</p>
+    <div class="section-label">About</div>
+    <h2>What is AutoShard?</h2>
+    <p class="section-desc">An autonomous risk analysis agent purpose-built for Base B20 tokens. It runs headless, returns JSON, and never asks for an API key.</p>
 
-    <div class="endpoints">
+    <div class="about-grid">
+      <div class="about-item">
+        <div class="about-icon">⚡</div>
+        <div>
+          <strong>Autonomous B20 token risk agent</strong>
+          <p>Continuously scans and scores B20 tokens on Base mainnet without manual intervention.</p>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">🔷</div>
+        <div>
+          <strong>Runs on Base mainnet</strong>
+          <p>Native to Base. Uses standard JSON-RPC with chain-aware headers.</p>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">🔌</div>
+        <div>
+          <strong>Headless JSON API</strong>
+          <p>Four endpoints. Structured responses. Drop into any agent, CI pipeline, or bot.</p>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">🚫</div>
+        <div>
+          <strong>No UI</strong>
+          <p>No dashboard. No frontend. No dependencies beyond Python stdlib.</p>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">💰</div>
+        <div>
+          <strong>No paid providers</strong>
+          <p>Uses public Base RPC. No Alchemy, no Infura, no subscriptions.</p>
+        </div>
+      </div>
+      <div class="about-item">
+        <div class="about-icon">🪣</div>
+        <div>
+          <strong>SQLite-backed ledger</strong>
+          <p>Persists every scan locally. Export, replay, or rebuild scores at any time.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-label">How It Works</div>
+    <h2>Four steps from bytecode to risk score.</h2>
+    <p class="section-desc">Everything runs locally. No cloud. No black box.</p>
+
+    <div class="workflow">
+      <div class="workflow-step">
+        <div class="step-num">1</div>
+        <h4>Fetch Contract</h4>
+        <p>Pulls contract metadata and holder data via Base JSON-RPC.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">2</div>
+        <h4>Analyze Bytecode</h4>
+        <p>Inspects opcodes and selectors for known risk patterns.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">3</div>
+        <h4>Detect Risk Patterns</h4>
+        <p>Scores contract age, holder concentration, liquidity gaps, and hooks.</p>
+      </div>
+      <div class="workflow-step">
+        <div class="step-num">4</div>
+        <h4>Return JSON Response</h4>
+        <p>Outputs deterministic score with breakdown, classification, and reasons.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-label">Features</div>
+    <h2>Built for agents. Designed for humans.</h2>
+    <p class="section-desc">Everything you'd expect from production risk infrastructure, none of the bloat.</p>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🤖</span>
+        <h4>Autonomous analysis</h4>
+        <p>Runs unattended. Schedule via cron or trigger on-chain events.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔎</span>
+        <h4>Bytecode inspection</h4>
+        <p>Reads selectors, parses opcodes, flags suspicious patterns.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🪝</span>
+        <h4>Hook detection</h4>
+        <p>Identifies pause, mint, fee-setting hooks and other admin surfaces.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <h4>Transparent risk scoring</h4>
+        <p>Deterministic deltas. No ML. Scoring rules fully documented.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔗</span>
+        <h4>Headless JSON API</h4>
+        <p>REST over HTTP. Language-agnostic. Works with curl, Python, TS, Rust.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌐</span>
+        <h4>Open source</h4>
+        <p>MIT licensed. Inspect, fork, extend. Community-driven.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🔷</span>
+        <h4>Base-native</h4>
+        <p>Optimized for Base mainnet and Base Sepolia. Chain-aware.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📦</span>
+        <h4>Lightweight infrastructure</h4>
+        <p>Pure Python. Single file. stdlib only. ~200 lines.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🗄️</span>
+        <h4>SQLite ledger</h4>
+        <p>Local-first persistence. Export JSON. Query history at any time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-label">Architecture</div>
+    <h2>One API. Any client.</h2>
+    <p class="section-desc">Integrates cleanly into any stack that can make an HTTP request.</p>
+
+    <div class="arch-box">
+      <div class="arch-flow">
+        <div class="arch-node">Wallets</div>
+        <div class="arch-node">AI Agents</div>
+        <div class="arch-node">Trading Bots</div>
+        <div class="arch-node">Launchpads</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node highlight">AutoShard API</div>
+        <div class="arch-arrow">→</div>
+        <div class="arch-node">Base Mainnet RPC</div>
+      </div>
+      <div class="arch-label">Clients → AutoShard → Chain</div>
+    </div>
+  </div>
+</section>
+
+<!-- API EXAMPLE -->
+<section id="api" class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="section-label">API Example</div>
+    <h2>Four endpoints. One philosophy.</h2>
+    <p class="section-desc">Every response is JSON. Every field is documented. No auth required.</p>
+
+    <div class="api-block">
+<span class="comment"># scan a token</span>
+<span class="prompt">$</span> curl -X POST http://127.0.0.1:8080/scan \
+    -H <span class="url">'Content-Type: application/json'</span> \
+    -d <span class="url">'{"address":"0x4200000000000000000000000000000000000006","chain":"base"}'</span>
+
+<span class="comment">// response</span>
+<span class="bracket">{</span>
+  <span class="key">"address"</span>:       <span class="string">"0x4200000000000000000000000000000000000006"</span>,
+  <span class="key">"name"</span>:          <span class="string">"Wrapped Ether"</span>,
+  <span class="key">"symbol"</span>:        <span class="string">"WETH"</span>,
+  <span class="key">"risk_score"</span>:    <span class="number">92.0</span>,
+  <span class="key">"classification"</span>:<span class="string">"safe"</span>,
+  <span class="key">"last_scanned"</span>:  <span class="string">"2025-06-26T17:42:11Z"</span>,
+  <span class="key">"factors"</span>:      <span class="bracket">{</span>
+    <span class="key">"contract_age"</span>:    <span class="number">2847193</span>,
+    <span class="key">"top_holder_pct"</span>: <span class="number">12.4</span>,
+    <span class="key">"has_liquidity"</span>: <span class="number">true</span>,
+    <span class="key">"hooks"</span>:          <span class="bracket">[]</span>
+  <span class="bracket">}</span>,
+  <span class="key">"reasons"</span>:      <span class="bracket">[</span><span class="string">"mature contract"</span>, <span class="string">"distributed holders"</span><span class="bracket">]</span>
+<span class="bracket">}</span>
+
+<span class="comment"># other endpoints</span>
+<span class="prompt">$</span> curl http://127.0.0.1:8080/health
+<span class="prompt">$</span> curl http://127.0.0.1:8080/ledger
+<span class="prompt">$</span> curl -X POST http://127.0.0.1:8080/refresh
+    </div>
+
+    <div class="endpoints" style="margin-top:20px;">
       <div class="endpoint">
         <div class="endpoint-method get">GET</div>
         <div class="endpoint-body">
           <div class="endpoint-path">/health</div>
-          <div class="endpoint-desc">Returns <span class="inline-code">{"status":"ok"}</span></div>
+          <div class="endpoint-desc">Service status</div>
         </div>
       </div>
       <div class="endpoint">
         <div class="endpoint-method post">POST</div>
         <div class="endpoint-body">
-          <div class="endpoint-path">/scan <span class="inline-code">{ address: "0x...", chain: "base" }</span></div>
-          <div class="endpoint-desc">Score a single token. Returns risk_score (0–100), classification, factor breakdown, and top-3 reasons.</div>
+          <div class="endpoint-path">/scan <span style="color:var(--text-muted);font-size:12px;">{ address, chain? }</span></div>
+          <div class="endpoint-desc">Score a single token</div>
         </div>
       </div>
       <div class="endpoint">
         <div class="endpoint-method get">GET</div>
         <div class="endpoint-body">
           <div class="endpoint-path">/ledger</div>
-          <div class="endpoint-desc">Full SQLite-backed ledger. Every scanned token with its latest score and last-scanned timestamp.</div>
+          <div class="endpoint-desc">Full token ledger with scores</div>
         </div>
       </div>
       <div class="endpoint">
         <div class="endpoint-method post">POST</div>
         <div class="endpoint-body">
           <div class="endpoint-path">/refresh</div>
-          <div class="endpoint-desc">Recompute scores from stored factors without hitting RPC again.</div>
+          <div class="endpoint-desc">Recompute scores without RPC</div>
         </div>
       </div>
     </div>
-
-    <div class="code-block" style="margin-top:20px;">
-      <span class="lang">bash</span>
-<span class="comment"># health check</span>
-curl http://127.0.0.1:8080/health
-
-<span class="comment"># full scan example</span>
-curl -X POST http://127.0.0.1:8080/scan \
-  -H <span class="url">'Content-Type: application/json'</span> \
-  -d <span class="url">'{"address":"0x4200000000000000000000000000000000000006","chain":"base"}'</span>
-
-<span class="comment"># export full ledger</span>
-curl http://127.0.0.1:8080/ledger | jq .
-    </div>
   </div>
 </section>
 
-<section id="model" class="section" style="padding-top:0;">
+<!-- OPEN SOURCE -->
+<section class="section" style="padding-top:0;">
   <div class="container">
-    <div class="section-label">Risk Model</div>
-    <h2>Deterministic. Interpretable. Free.</h2>
-    <p class="section-desc">Base score 100. Deductions for contract age, holder concentration, liquidity gaps, and admin hooks. No ML black box. Fully documented in SKILL.md.</p>
+    <div class="section-label">Open Source</div>
+    <h2>Transparent by design.</h2>
+    <p class="section-desc">AutoShard is MIT licensed. The detection logic is public, documented, and community-driven.</p>
 
-    <div class="risk-grid">
-      <div class="risk-card">
-        <h3><span class="risk-dot" style="background:var(--accent)"></span> SAFE</h3>
-        <p>Score ≥ 70</p>
-      </div>
-      <div class="risk-card">
-        <h3><span class="risk-dot" style="background:var(--warn)"></span> WARN</h3>
-        <p>Score ≥ 35</p>
-      </div>
-      <div class="risk-card">
-        <h3><span class="risk-dot" style="background:var(--danger)"></span> DANGER</h3>
-        <p>Score &lt; 35</p>
-      </div>
-    </div>
-
-    <div class="code-block" style="margin-top:20px;">
-      <span class="lang">python</span>
-<span class="comment"># key deltas from SKILL.md</span>
-
-<span class="comment"># age</span>
-contract_age &lt; <span class="inline-code">100 blocks</span>     → <span class="inline-code">-40</span>
-contract_age &lt; <span class="inline-code">10,000 blocks</span> → <span class="inline-code">-20</span>
-
-<span class="comment"># holder concentration</span>
-top_holder_pct &gt; <span class="inline-code">60%</span> → <span class="inline-code">-30</span>
-top_holder_pct &gt; <span class="inline-code">30%</span> → <span class="inline-code">-15</span>
-
-<span class="comment"># liquidity</span>
-<span class="inline-code">no liquidity</span>             → <span class="inline-code">-25</span>
-volume / liquidity &gt; <span class="inline-code">10x</span> → <span class="inline-code">-10</span>
-
-<span class="comment"># admin hooks</span>
-<span class="inline-code">pause</span>      → <span class="inline-code">-10</span>
-<span class="inline-code">mint</span>       → <span class="inline-code">-15</span>
-<span class="inline-code">set_fee</span>   → <span class="inline-code">flagged</span>
-    </div>
-  </div>
-</section>
-
-<section id="install" class="section" style="padding-top:0;">
-  <div class="container">
-    <div class="section-label">Install</div>
-    <h2>One command. Port 8080. Done.</h2>
-    <p class="section-desc">Pure Python. stdlib only. No pip packages required. SQLite ledger persists across restarts.</p>
-
-    <div class="install-grid">
-      <div class="install-card">
-        <h4>Local</h4>
-        <p>Clone and run. Points to Base mainnet by default.</p>
-        <div class="mini-code">git clone https://github.com/retarddegeneth/autoshard.git
-cd autoshard
-python3 app.py</div>
-      </div>
-      <div class="install-card">
-        <h4>Custom RPC</h4>
-        <p>Override the default endpoint via environment variable.</p>
-        <div class="mini-code">BASE_RPC=https://your-rpc \
-  python3 app.py</div>
+    <div class="oss-section">
+      <div class="oss-grid">
+        <div class="oss-item">
+          <h4>MIT Licensed</h4>
+          <p>Use it, fork it, ship it. No restrictions, no gating.</p>
+        </div>
+        <div class="oss-item">
+          <h4>Transparent Detection Logic</h4>
+          <p>Every deduction is hardcoded in SKILL.md. No hidden weights.</p>
+        </div>
+        <div class="oss-item">
+          <h4>Community-Driven</h4>
+          <p>Built on Base. Improved by the community. PRs welcome.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="verify" class="section" style="padding-top:0;">
-  <div class="container">
-    <div class="section-label">Verify</div>
-    <h2>Three curls. Keys? Not needed.</h2>
-    <p class="section-desc">No account. No rate limits. Just open HTTP.</p>
-
-    <div class="code-block">
-<span class="comment"># service up?</span>
-curl http://127.0.0.1:8080/health
-<span class="comment"># {"status":"ok"}</span>
-
-<span class="comment"># scan WETH</span>
-curl -X POST http://127.0.0.1:8080/scan \
-  -H <span class="url">'Content-Type: application/json'</span> \
-  -d <span class="url">'{"address":"0x4200000000000000000000000000000000000006","chain":"base"}'</span>
-
-<span class="comment"># full ledger</span>
-curl http://127.0.0.1:8080/ledger | jq .
-    </div>
-  </div>
-</section>
-
+<!-- CTA -->
 <div class="cta">
   <div class="container">
     <div class="cta-card">
-      <h2>Headless. On-chain. Agent-ready.</h2>
-      <p>AutoShard is the risk layer for Base B20. No UI. No friction. Just JSON.</p>
-      <a class="cta-btn" href="https://github.com/retarddegeneth/autoshard">View on GitHub</a>
-      <a class="cta-btn secondary" href="https://github.com/retarddegeneth/autoshard/blob/main/SKILL.md">Read SKILL.md</a>
+      <h2>Ready to integrate?</h2>
+      <p>AutoShard is the risk layer for Base B20. Four endpoints. Zero friction.</p>
+      <div class="cta-btns">
+        <a class="btn-primary" href="https://github.com/retarddegeneth/autoshard">View on GitHub</a>
+        <a class="btn-secondary" href="https://github.com/retarddegeneth/autoshard/blob/main/SKILL.md">Read Docs</a>
+      </div>
     </div>
   </div>
 </div>
@@ -749,12 +1040,19 @@ curl http://127.0.0.1:8080/ledger | jq .
 </main>
 
 <footer>
-  <div class="container footer-inner">
-    <p>MIT License. Agent/human friendly. No paid providers. No UI by design.</p>
+  <div class="container" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px;">
+    <div>
+      <div class="footer-brand">
+        <div class="logo-icon">A</div>
+        <span>AutoShard</span>
+      </div>
+      <div class="footer-tagline">Autonomous B20 token risk agent on Base.</div>
+    </div>
     <ul class="footer-links">
-      <li><a href="https://github.com/retarddegeneth/autoshard">Repository</a></li>
-      <li><a href="https://github.com/retarddegeneth/b20-scanner">b20-scanner (UI)</a></li>
-      <li><a href="https://retarddegeneth.github.io/autoshard/">Live site</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#api">API</a></li>
+      <li><a href="https://github.com/retarddegeneth/autoshard">GitHub</a></li>
+      <li><a href="https://github.com/retarddegeneth/autoshard/blob/main/LICENSE">MIT License</a></li>
     </ul>
   </div>
 </footer>
