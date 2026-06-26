@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AutoShard — Base B20 Risk Agent</title>
+<style>
+  :root{--bg:#0a0a0a;--fg:#e0e0e0;--muted:#6b6b6b;--accent:#00ff9d;--warn:#ffbd2e;--danger:#ff4d4d;--code:#1a1a1a;--border:#2a2a2a}
+  *{box-sizing:border-box}
+  body{background:var(--bg);color:var(--fg);font-family:Menlo,Consolas,Monaco,monospace;margin:0;line-height:1.65}
+  a{color:var(--accent)}
+  a:hover{text-decoration:none}
+  .wrap{max-width:860px;margin:0 auto;padding:40px 20px}
+  header{border-bottom:1px solid var(--border);padding-bottom:24px;margin-bottom:32px}
+  header h1{font-size:28px;margin:0;letter-spacing:-0.5px}
+  header h1 span{color:var(--accent)}
+  header p{margin:8px 0 0;color:var(--muted);font-size:14px}
+  section{margin:36px 0}
+  h2{font-size:16px;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);margin:0 0 12px}
+  .endpoint{background:var(--code);border:1px solid var(--border);border-radius:6px;padding:16px;margin:10px 0;overflow:auto}
+  .method{padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;margin-right:10px;display:inline-block}
+  .get{background:#1f3a2f;color:var(--accent)}
+  .post{background:#3a2f1f;color:var(--warn)}
+  pre{margin:0;color:#d4d4d4;font-size:13px}
+  code{background:var(--code);padding:2px 6px;border-radius:4px;font-size:13px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--border)}
+  th{color:var(--muted);font-weight:500}
+  .badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:12px;font-weight:700}
+  .safe{background:#1f3a2f;color:var(--accent)}
+  .warn{background:#3a301f;color:var(--warn)}
+  .danger{background:#3a1f1f;color:var(--danger)}
+  footer{border-top:1px solid var(--border);padding-top:20px;margin-top:60px;color:var(--muted);font-size:13px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:16px 0}
+  .card{background:var(--code);border:1px solid var(--border);border-radius:6px;padding:14px}
+  .card strong{color:var(--fg);font-weight:700}
+  .card p{margin:6px 0 0;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1><span>&gt;</span> AutoShard</h1>
+  <p>Autonomous B20 token risk agent on Base mainnet. Headless JSON API. No UI. No paid providers.</p>
+  <p style="margin-top:10px;font-size:13px">
+    <span class="badge safe">Base Mainnet</span>
+    <span class="badge" style="background:#1f1f3a;color:#8aa8ff">JSON API</span>
+    <span class="badge" style="background:#1f1f3a;color:#8aa8ff">SQLite Ledger</span>
+    <span class="badge" style="background:#1f1f3a;color:#8aa8ff">MIT</span>
+  </p>
+</header>
+
+<section>
+  <h2>Quick Start</h2>
+  <div class="endpoint"><pre>git clone https://github.com/retarddegeneth/autoshard.git
+cd autoshard
+python3 app.py
+# API on http://127.0.0.1:8080</pre></div>
+</section>
+
+<section>
+  <h2>API Reference</h2>
+  <div class="endpoint">
+    <div><span class="method get">GET</span> <code>/health</code></div>
+    <pre>{"status":"ok"}</pre>
+  </div>
+
+  <div class="endpoint">
+    <div><span class="method post">POST</span> <code>/scan</code></div>
+    <pre>{"address":"0x4200000000000000000000000000000000000006","chain":"base"}
+-->
+{"address":"0x...","symbol":"WETH","risk_score":92.0,"classification":"safe","factors":{...},"reasons":[...],"last_scanned":"..."}</pre>
+  </div>
+
+  <div class="endpoint">
+    <div><span class="method get">GET</span> <code>/ledger</code></div>
+    <pre>List all scanned tokens with latest risk scores.</pre>
+  </div>
+
+  <div class="endpoint">
+    <div><span class="method post">POST</span> <code>/refresh</code></div>
+    <pre>Recompute scores from stored factors without re-fetching on-chain data.</pre>
+  </div>
+</section>
+
+<section>
+  <h2>Risk Model</h2>
+  <div class="grid">
+    <div class="card">
+      <strong>SAFE</strong>
+      <p>Score >= 70</p>
+    </div>
+    <div class="card">
+      <strong>WARN</strong>
+      <p>Score >= 35</p>
+    </div>
+    <div class="card">
+      <strong>DANGER</strong>
+      <p>Score &lt; 35</p>
+    </div>
+  </div>
+  <p>Base score: 100. Deductions apply for contract age, holder concentration, liquidity gaps, and hook patterns (pause, mint, fee setters). Full delta table is in <code>SKILL.md</code> in the repo.</p>
+</section>
+
+<section>
+  <h2>RPC</h2>
+  <p>Default: <code>https://mainnet.base.org</code>. Override with <code>BASE_RPC=https://your-rpc</code>. Send header <code>X-Chain-ID: 0x2105</code> (Base) or <code>0x14a34</code> (Base Sepolia).</p>
+</section>
+
+<section>
+  <h2>Data Store</h2>
+  <p>SQLite file: <code>b20.db</code>, table <code>tokens</code>. Persists across restarts.</p>
+</section>
+
+<section>
+  <h2>Verification</h2>
+  <div class="endpoint"><pre>curl http://127.0.0.1:8080/health
+curl -X POST -H 'Content-Type: application/json' -d '{"address":"0x4200000000000000000000000000000000000006","chain":"base"}' http://127.0.0.1:8080/scan
+curl http://127.0.0.1:8080/ledger</pre></div>
+</section>
+
+<section>
+  <h2>Repo</h2>
+  <p><a href="https://github.com/retarddegeneth/autoshard">github.com/retarddegeneth/autoshard</a></p>
+</section>
+
+<footer>
+  MIT License. Agent/human friendly. No paid providers. No UI by design.
+</footer>
+</div>
+</body>
+</html>
