@@ -36,7 +36,12 @@ def rpc(method, params, chain="base", timeout=15):
     req = urllib.request.Request(
         BASE_RPC,
         data=payload,
-        headers={"Content-Type": "application/json", "X-Chain-ID": BASE_IDS.get(chain, "0x2105"), "User-Agent": "autoshard/1.0 (+https://github.com/retarddegeneth/autoshard)"},
+        headers={
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-Chain-ID": BASE_IDS.get(chain, "0x2105"),
+            "User-Agent": "autoshard/1.0 (+https://github.com/retarddegeneth/autoshard)",
+        },
     )
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read())["result"]
@@ -81,12 +86,14 @@ def fetch_token_live(address, chain="base"):
         err["rpc"] += 1
         err["block_err"] = True
 
-    block_age = now_block if now_block else 10**9
+    creation_block = 0
+    block_age = now_block - creation_block if now_block and creation_block else None
     total_supply = 0
     try:
         total_supply = int(base_call(address, "0x18160ddd", [], chain), 16) / (10 ** decimals)
     except Exception:
-        pass
+        err["rpc"] += 1
+        err["supply_err"] = True
 
     hooks = []
     for label, sig in {"pause": "0x8456cb59", "mint": "0x40c10f19", "set_fee": "0x9e6b44b"}.items():
@@ -95,7 +102,7 @@ def fetch_token_live(address, chain="base"):
             if res and res not in ("0x", "0x0"):
                 hooks.append(label)
         except Exception:
-            pass
+            err["hook_rpc"] = err.get("hook_rpc", 0) + 1
 
     factors = {
         "block_age": block_age,
@@ -106,25 +113,40 @@ def fetch_token_live(address, chain="base"):
         "decimals": decimals,
         "total_supply": total_supply,
         "rpc_errors": err,
+        "data_completeness": err["rpc"] == 0,
     }
     return name, symbol, factors
 
 
 def signature_risk(factors):
+    if not factors.get("data_completeness", False):
+        return 0.0, "unknown", ["INSUFFICIENT_ONCHAIN_DATA"]
+
     score = 100.0
     reasons = []
-    if factors.get("block_age", 10**9) < 100:
+
+    block_age = factors.get("block_age")
+    if block_age is None:
+        return 0.0, "unknown", ["MISSING_BLOCK_AGE"]
+
+    if block_age < 100:
         score -= 40
         reasons.append("EXTREMELY_NEW_CONTRACT (<100 blocks)")
-    elif factors.get("block_age", 10**9) < 10000:
+    elif block_age < 10000:
         score -= 20
         reasons.append("NEW_CONTRACT (<10k blocks)")
-    if factors.get("top_holder_pct", 0) > 60:
+
+    top_holder_pct = factors.get("top_holder_pct", 0)
+    if top_holder_pct == 0 and factors.get("top_holder_missing", False):
+        return 0.0, "unknown", ["MISSING_HOLDER_DATA"]
+
+    if top_holder_pct > 60:
         score -= 30
         reasons.append("CONCENTRATED_TOP_HOLDER(>60%)")
-    elif factors.get("top_holder_pct", 0) > 30:
+    elif top_holder_pct > 30:
         score -= 15
         reasons.append("TOP_HOLDER(>30%)")
+
     liq = float(factors.get("liquidity_usd", 0) or 0)
     vol = float(factors.get("volume_24h", 0) or 0)
     if liq == 0:
@@ -133,6 +155,7 @@ def signature_risk(factors):
     elif vol > 0 and liq > 0 and vol > liq * 10:
         score -= 10
         reasons.append("VOLUME_ILLIQUID_RATIO_SUSPICIOUS")
+
     for hook in (factors.get("hooks") or []):
         if hook == "pause":
             score -= 10
@@ -142,6 +165,7 @@ def signature_risk(factors):
             reasons.append("DYNAMIC_MINT_HOOK_DETECTED")
         if hook == "set_fee":
             reasons.append("SET_FEE_HOOK_DETECTED")
+
     score = max(0.0, min(100.0, score))
     if score >= 70:
         cls = "safe"
