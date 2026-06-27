@@ -36,7 +36,7 @@ def rpc(method, params, chain="base", timeout=15):
     req = urllib.request.Request(
         BASE_RPC,
         data=payload,
-        headers={"Content-Type": "application/json", "X-Chain-ID": BASE_IDS.get(chain, "0x2105")},
+        headers={"Content-Type": "application/json", "X-Chain-ID": BASE_IDS.get(chain, "0x2105"), "User-Agent": "autoshard/1.0 (+https://github.com/retarddegeneth/autoshard)"},
     )
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return json.loads(r.read())["result"]
@@ -224,6 +224,18 @@ def scan():
 @app.route("/ledger", methods=["GET"])
 def ledger():
     return jsonify(get_all_tokens())
+
+
+@app.route("/token/<address>", methods=["GET"])
+def token(address):
+    clean = address.strip()
+    if not re.fullmatch(r"0x[0-9a-fA-F]{40}", clean):
+        return jsonify({"error": "Invalid address"}), 400
+    tokens = get_all_tokens()
+    t = next((x for x in tokens if x["address"].lower() == clean.lower()), None)
+    if not t:
+        return jsonify({"error": "Not found"}), 404
+    return jsonify(t)
 
 
 @app.route("/refresh", methods=["POST"])
