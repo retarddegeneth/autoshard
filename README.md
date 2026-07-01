@@ -68,3 +68,7 @@ curl http://127.0.0.1:8080/ledger
 - No UI. Headless JSON API only.
 - No paid APIs required.
 - Port: 8080. Stop other flask apps first if needed.
+
+Token: `0xb01bb638Ce9d7A4d41571E694371502aCeC70b07`
+
+Buy on Clanker: https://www.clanker.world/clanker/0xb01bb638Ce9d7A4d41571E694371502aCeC70b07
